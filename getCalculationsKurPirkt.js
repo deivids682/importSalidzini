@@ -32,7 +32,6 @@ module.exports.getXml = async function () {
             let xml = {};
 
             let cats = product[0]['custom_collections'];
-    
 
             object3.forEach(item => {
 
@@ -44,7 +43,7 @@ module.exports.getXml = async function () {
                 xml[item.id]['title'] = item.title;
                 xml[item.id]['vendor'] = item.vendor;
                 xml[item.id]['cat'] = l !== undefined ? l.handle : null;
-                xml[item.id]['fullCat'] = `${cat1} &gt;&gt; ${item.tags}`;
+                xml[item.id]['fullCat'] = `${cat1} &gt; ${item.tags}`;
                 xml[item.id]['tags'] = item.tags;
                 xml[item.id]['productLink'] = `https://viedierices.lv/collections/${xml[item.id].cat}/products/${item.handle}`
                 xml[item.id]['catLink'] = `https://viedierices.lv/collections/${xml[item.id].cat}`
@@ -53,7 +52,7 @@ module.exports.getXml = async function () {
                 xml[item.id]['model'] = item.variants[0].barcode;
                 xml[item.id]['color'] = color || "nav";
             });
-           // xml = product[0].products;
+     
             let xmlStr = "";
             for (const id in xml) {
                 const p = xml[id];
@@ -61,19 +60,15 @@ module.exports.getXml = async function () {
                             <name>${p.title || "nav"}</name>
                             <link>${p.productLink || "nav"}</link>
                             <price>${p.price || "nav"}</price>
-                            <image>${p.imgSrc}</image>
+                            <image>${p.imgSrc || "nav"}</image>
+                            <category>${p.cat || "nav"}</category>
                             <category_full>${p.fullCat || "nav"}</category_full>
                             <category_link>${p.catLink || "nav"}</category_link>
-                            <brand>${p.vendor || "nav"}</brand>
+                            <manufacturer>${p.vendor || "nav"}</manufacturer>
                             <model>${p.model || "nav"}</model> 
-                            <color>${p.color || "nav"}</color> 
-                            <delivery_omniva>2.5</delivery_omniva>
-                            <delivery_days_riga>5</delivery_days_riga>
-                            <delivery_days_latvija>5</delivery_days_latvija>
-                            <adult>no</adult>
                         </item>`;
             }
-            
+
             let xmlString =
                 `<?xml version="1.0" encoding="utf-8" ?>
                 <root>
@@ -143,3 +138,4 @@ async function getSmartColections() {
         }
     });
 }
+
